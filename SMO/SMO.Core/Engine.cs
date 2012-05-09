@@ -7,15 +7,24 @@ namespace SMO.Core
 {
     public class Engine : IEngine
     {
-        private IRandomGenerator generator;
-        
+        private ISystemGenerator generator;
+        private AverageScore scorer = new AverageScore();
+
+        public double AverageInterval
+        {
+            get
+            {
+                return scorer.Result;
+            }
+        }
+
         public bool Running
         {
             get;
             private set;
         }
 
-        public Engine(ISystemClock clock, IRandomGenerator generator)
+        public Engine(ISystemClock clock, ISystemGenerator generator)
         {
             this.generator = generator;
             clock.TickEvent += OnTickEvent;
@@ -24,17 +33,16 @@ namespace SMO.Core
 
         public void GenerateNewRequest()
         {
-            var args = new NewRequestEventArg(Time);
-            NewRequestEvent.Raise(this, args);
-
-            NextTimeForNewRequest = generator.Next;
-            Time = 0;
+            NextTimeForNewRequest = generator.NextIntervalTime;
             CountGeneratedRequest++;
+            var args = new RequestEventArg(-1, NextTimeForNewRequest, CountGeneratedRequest);
+            NewRequestEvent.Raise(this, args);
+            TimeToNextRequestBorn = 0;
         }
 
-        public event EventHandler<NewRequestEventArg> NewRequestEvent;
+        public event EventHandler<RequestEventArg> NewRequestEvent;
 
-        public int Time
+        public int TimeToNextRequestBorn
         {
             get;
             private set;
@@ -44,7 +52,7 @@ namespace SMO.Core
         {
             if (Running)
             {
-                if (NextTimeForNewRequest == Time++)
+                if (NextTimeForNewRequest == TimeToNextRequestBorn++)
                 {
                     GenerateNewRequest();
                 }

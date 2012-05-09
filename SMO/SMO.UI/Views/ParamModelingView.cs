@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SMO.UI
+namespace SMO.UI.Views
 {
-    public interface IRequest
+    public class ParamModelingView : BaseView
     {
+
     }
 }

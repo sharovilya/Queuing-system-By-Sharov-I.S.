@@ -8,28 +8,27 @@ namespace SMO.Core
     public class FIFOQueuingSystem : IDisciplineQueuingSystem   
     {
         private LinkedList<IRequest> requests = new LinkedList<IRequest>();
-        //private Queue<IRequest> requests = new Queue<IRequest>();
 
-        public long TotalSize
+        public int TotalSize
         {
             get;
-            private set;
+            set;
+        }
+
+        public void Reset()
+        {
+           requests.Clear();
         }
 
         public long CountRequestsInQueue
         {
             get { return requests.Count; }
         }
-
-        public FIFOQueuingSystem(ISystemClock clock, long size)
+        
+        public FIFOQueuingSystem()
         {
-            clock.TickEvent += OnTickEvent;
-            TotalSize = size;
-        }
-
-        void OnTickEvent(object sender, EventArgs e)
-        {
-            // TODO Собираем инфу с запросов 
+            // TODO переделать
+            TotalSize = 10;
         }
 
         public void Put(IRequest r)
@@ -45,7 +44,6 @@ namespace SMO.Core
             requests.RemoveFirst();
             return request;
         }
-
 
         public bool IsFull
         {

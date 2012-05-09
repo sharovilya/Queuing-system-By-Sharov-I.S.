@@ -8,13 +8,11 @@ namespace SMO.Core
     public interface IDisciplineQueuingSystem
     {
         void Put(IRequest r1);
-
         IRequest PullOut();
-
         bool IsFull { get; }
-
         long CountRequestsInQueue { get; }
-
         bool IsEmpty { get; }
+        int TotalSize { get; set; }
+        void Reset();
     }
 }

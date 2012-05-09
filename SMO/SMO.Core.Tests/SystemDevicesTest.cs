@@ -8,18 +8,18 @@ namespace SMO.Core.Tests
     public class SystemDevicesTest
     {
         ISystemDevices devices;
-        IRandomGenerator generator;
+        ISystemGenerator generator;
         ISystemClock clock;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            generator = new MockRandomGenerator();
+            generator = new MockSystemGenerator();
             clock = new SystemClock();
             devices = new SystemDevices();
 
-            devices.Add(new Device(clock, generator));
-            devices.Add(new Device(clock, generator));
+            devices.Add(new Device(clock));
+            devices.Add(new Device(clock));
         }
 
         [TestMethod]
@@ -27,10 +27,10 @@ namespace SMO.Core.Tests
         {
             Assert.IsTrue(devices.ThereIsFreeDevice, "Empty");
 
-            devices.TakeFreeDevice(Request.New(1));
+            devices.TakeFreeDevice(Request.New(1, generator.NextProcessingTime, 1));
             Assert.IsTrue(devices.ThereIsFreeDevice, "1 device busy");
 
-            devices.TakeFreeDevice(Request.New(2));
+            devices.TakeFreeDevice(Request.New(2, generator.NextProcessingTime, 2));
             Assert.IsFalse(devices.ThereIsFreeDevice, "All device busy");
         }
 
@@ -41,8 +41,8 @@ namespace SMO.Core.Tests
             int timeForRequest = generator.GetTimeFor(countRequest);
             int time = 0;
 
-            devices.TakeFreeDevice(Request.New(1));
-            devices.TakeFreeDevice(Request.New(2));
+            devices.TakeFreeDevice(Request.New(1, generator.NextProcessingTime, 1));
+            devices.TakeFreeDevice(Request.New(2, generator.NextProcessingTime, 1));
 
             Assert.IsFalse(devices.ThereIsFreeDevice);
             while (time++ != timeForRequest)

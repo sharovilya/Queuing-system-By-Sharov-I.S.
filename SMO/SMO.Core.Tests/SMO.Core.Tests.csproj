@@ -8,10 +8,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SMO.Core.Tests</RootNamespace>
     <AssemblyName>SMO.Core.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FSharp.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
     <Reference Include="System" />
   </ItemGroup>
@@ -47,7 +49,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="MockRandomGenerator.cs" />
+    <Compile Include="MockSystemGenerator.cs" />
     <Compile Include="MockSystemComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueuingSystemTest.cs" />
@@ -57,15 +59,12 @@
     <Compile Include="SystemDevicesTest.cs" />
     <Compile Include="DisciplineQueuingSystemTest.cs" />
     <Compile Include="RequestTest.cs" />
+    <Compile Include="AverageScoreTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SMO.Core\SMO.Core.csproj">
       <Project>{DF8BB8FB-FB95-45EA-B047-00782D9CC120}</Project>
       <Name>SMO.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SMO.Math\SMO.Math.fsproj">
-      <Project>{771d6d0d-b214-4bea-90ac-fbc6daa5e642}</Project>
-      <Name>SMO.Math</Name>
     </ProjectReference>
     <ProjectReference Include="..\SMO.UI\SMO.UI.csproj">
       <Project>{042CE01C-5898-4364-9757-0B42E4226958}</Project>

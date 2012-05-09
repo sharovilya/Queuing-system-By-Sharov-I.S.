@@ -7,9 +7,11 @@ namespace SMO.Core
 {
     public class Request : IRequest
     {
-        public Request(int timeBorn)
+        public Request(int timeBorn, int processingTime, int countInSystem)
         {
             TimeBorn = timeBorn;
+            ProcessingTime = processingTime;
+            CountInSystem = countInSystem;
         }
         
         public override int GetHashCode()
@@ -28,9 +30,21 @@ namespace SMO.Core
             private set;
         }
 
-        public static IRequest New(int timeBorn)
+        public static IRequest New(int timeBorn, int processingTime, int countInSystem)
         {
-            return new Request(timeBorn);
+            return new Request(timeBorn, processingTime, countInSystem);
+        }
+
+        public int ProcessingTime
+        {
+            get;
+            private set;
+        }
+
+        public int CountInSystem
+        {
+            get;
+            private set;
         }
     }
 }

@@ -1,97 +1,119 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SMO.Core
 {
     public class QueuingSystem : IQueuingSystem
     {
-        private IEngine engine;
-        private ISystemDevices devices;
-        private IDisciplineQueuingSystem discipline;
-
-        public ISystemDevices Devices
+        public QueuingSystem(ISystemGenerator generator,
+                             ISystemClock clock,
+                             IEngine engine,
+                             ISystemDevices devices,
+                             IDisciplineQueuingSystem discipline,
+                             ISystemStatistics statistics)
         {
-            get
-            {
-                return devices;
-            }
-        }
+            Devices = devices;
+            Generator = generator;
+            Discipline = discipline;
+            Statistics = statistics;
 
-        public QueuingSystem(ISystemClock clock, 
-                             IEngine engine, 
-                             ISystemDevices devices, 
-                             IDisciplineQueuingSystem discipline)
-        {
-            this.engine = engine;
-            this.devices = devices;
-            this.discipline = discipline;
-
-            devices.HandledRequestEvent += OnRequestHandled;
+            devices.RequestHandledEvent += OnRequestHandled;
             engine.NewRequestEvent += OnNewRequest;
             clock.TickEvent += OnTickEvent;
         }
-        
-        private void OnNewRequest(object sender, NewRequestEventArg e)
+
+        public ISystemGenerator Generator { get; private set; }
+
+        public ISystemStatistics Statistics { get; private set; }
+
+        public IDisciplineQueuingSystem Discipline { get; private set; }
+
+        public int CountRejectedRequests { get; private set; }
+
+        #region IQueuingSystem Members
+
+        public ISystemDevices Devices { get; private set; }
+
+        public bool AreRequests
         {
-            if (devices.ThereIsFreeDevice)
+            get { return CountRequestInSystem > 0; }
+        }
+
+        public long CountRequestInSystem { get; private set; }
+
+        public int Time { get; private set; }
+
+        public int CountHandledRequest { get; private set; }
+
+        public void OnRequestHandled(object sender, RequestEventArg e)
+        {
+            CountHandledRequest++;
+            CountRequestInSystem--;
+
+            Statistics.WaitingTimeInSystem.Score(Time - e.TimeBorn);
+        }
+
+        public void Reset()
+        {
+            Statistics.Reset();
+            Generator.Reset();
+            Devices.Reset();
+            Discipline.Reset();
+            CountHandledRequest = 0;
+            CountRequestInSystem = 0;
+            Time = 0;
+        }
+
+        #endregion
+
+        private void OnNewRequest(object sender, RequestEventArg e)
+        {
+            Statistics.IntervalTime.Score(e.NextTimeForNewRequest);
+            IRequest newRequest = MakeNewRequest(e);
+
+            if (Devices.ThereIsFreeDevice)
             {
-                devices.TakeFreeDevice(Request.New(e.TimeBorn));
+                Devices.TakeFreeDevice(newRequest);
                 CountRequestInSystem++;
             }
-            else  if (!discipline.IsFull)
+            else if (!Discipline.IsFull)
             {
-                discipline.Put(Request.New(e.TimeBorn));
+                Discipline.Put(newRequest);
                 CountRequestInSystem++;
+            }
+            else
+            {
+                CountRejectedRequests++;
+                Statistics.UpdateRelativeBandwidth(CountRejectedRequests, e.CountRequestsCaughtInSystem);
             }
         }
 
-        public long CountRequestInSystem
+        private IRequest MakeNewRequest(RequestEventArg e)
         {
-            get;
-            private set;
-        }
-
-        public int Time
-        {
-            get;
-            private set;
+            int processingTime = Generator.NextProcessingTime;
+            Statistics.ServiceTime.Score(processingTime);
+            return Request.New(Time, processingTime, e.CountRequestsCaughtInSystem);
         }
 
         public void OnTickEvent(object @this, EventArgs e)
         {
-            Time++;
+            Tick();
 
-            if (!discipline.IsEmpty)
+            if (!Discipline.IsEmpty)
             {
-                if (devices.ThereIsFreeDevice)
+                Statistics.NumberOfRequestsInQueue.Score(Discipline.CountRequestsInQueue);
+                if (Devices.ThereIsFreeDevice)
                 {
-                    var request = discipline.PullOut();
-                    devices.TakeFreeDevice(request);
+                    var request = Discipline.PullOut();
+                    Devices.TakeFreeDevice(request);
+                    Statistics.WaitingTimeInQueue.Score(Time - request.TimeBorn);
                 }
             }
         }
 
-        public int CountHandledRequest
+        private void Tick()
         {
-            get;
-            private set;
-        }
-
-        public void OnRequestHandled(object sender, EventArgs e)
-        {
-            CountHandledRequest++;
-            CountRequestInSystem--;
-        }
-
-        public bool AreRequests
-        {
-            get
-            {
-                Console.WriteLine(CountRequestInSystem);
-                return CountRequestInSystem > 0;
-            }
+            Time++;
+            Statistics.NumberOfRequestsInSystem.Score(CountRequestInSystem);
         }
     }
 }

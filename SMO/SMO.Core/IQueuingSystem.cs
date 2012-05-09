@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SMO.Core
+﻿namespace SMO.Core
 {
     public interface IQueuingSystem
     {
@@ -13,10 +8,19 @@ namespace SMO.Core
 
         int CountHandledRequest { get; }
 
-        void OnRequestHandled(object sender, EventArgs e);
-
         int Time { get; }
 
         bool AreRequests { get; }
+
+        ISystemGenerator Generator { get; }
+
+        ISystemStatistics Statistics { get; }
+
+        IDisciplineQueuingSystem Discipline { get; }
+
+        int CountRejectedRequests { get; }
+        void OnRequestHandled(object sender, RequestEventArg e);
+
+        void Reset();
     }
 }

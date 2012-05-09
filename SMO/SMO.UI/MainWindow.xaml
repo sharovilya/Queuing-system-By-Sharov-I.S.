@@ -1,8 +1,120 @@
 ﻿<Window x:Class="SMO.UI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
+		xmlns:local="clr-namespace:SMO.UI"
+        
+        Title="MainWindow" Height="592.846" Width="1397.615">
+	<Window.Resources>
+	
+	</Window.Resources>
+    <Grid DataContext="{Binding}">
+    	<Grid.ColumnDefinitions>
+    		<ColumnDefinition Width="12*"/>
+    		<ColumnDefinition Width="13*"/>
+    	</Grid.ColumnDefinitions>
+    	<TabControl Grid.ColumnSpan="2">
+    		<TabItem Header="TabItem">
+    			<Grid Background="#FFE5E5E5">
+    				<Button Content="Начать" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="107.257" DataContext="{Binding RunView}" Command="{Binding RunCommand}" IsEnabled="{Binding NotRunning}"/>
+    				<GroupBox Header="Результаты моделирования" Margin="0,53.04,10,10" BorderBrush="Black" HorizontalAlignment="Right" Width="616">
+    					<Grid DataContext="{Binding StatisticsView}">
+    						<Grid.ColumnDefinitions>
+    							<ColumnDefinition Width="auto"/>
+								<ColumnDefinition Width="auto"/>
+								<ColumnDefinition Width="*"/>
+							</Grid.ColumnDefinitions>
+						
+						
+						<StackPanel Grid.Column="0"  Margin="10,10,10.82,7.552" VerticalAlignment="Top">
+    						<TextBlock Text = "Коэфициент использования системы" FontSize="16"/>
+							<TextBlock Text = "Средние время ожидания заявки в очереди" FontSize="16"/>
+							<TextBlock Text = "Средние время ожидания заявки в системе" FontSize="16"/>
+							<TextBlock Text = "Средние по времени число заявок в очереди" FontSize="16"/>
+							<TextBlock Text = "Средние по времени число заявок в системе" FontSize="16"/>
+							<TextBlock Text = "Абсолютная пропусная способность" FontSize="16"/>
+							<TextBlock Text = "Относительная пропусная способность" FontSize="16"/>
+						</StackPanel>
+
+						<StackPanel Grid.Column="1" HorizontalAlignment="Left"  Margin="10,10,10.82,7.552" VerticalAlignment="Top">
+    						<TextBlock Text = "[P]" FontSize="16"/>
+							<TextBlock Text = "[Tq]" FontSize="16"/>
+							<TextBlock Text = "[Ts]" FontSize="16"/>
+							<TextBlock Text = "[Nq]" FontSize="16"/>
+							<TextBlock Text = "[Ns]" FontSize="16"/>
+							<TextBlock Text = "[Ca]" FontSize="16"/>
+							<TextBlock Text = "[Cr]" FontSize="16"/>
+						</StackPanel>
+
+						<StackPanel Grid.Column="2" HorizontalAlignment="Left" Height="387" Margin="10,10,10.82,7.552" VerticalAlignment="Top">
+    						<TextBlock Text = "{Binding UtilizationFactorOfSystem}" x:Name="txt1" FontSize="16"/>
+							<TextBlock Text = "{Binding WaitingTimeInQueue}" FontSize="16"/>
+							<TextBlock Text = "{Binding WaitingTimeInSystem}" FontSize="16"/>
+							<TextBlock Text = "{Binding NumberOfRequestsInQueue}" FontSize="16"/>
+							<TextBlock Text = "{Binding NumberOfRequestsInSystem}" FontSize="16"/>
+							<TextBlock Text = "{Binding AbsolutBandwidth}" FontSize="16"/>
+							<TextBlock Text = "{Binding RelativeBandwidth}" FontSize="16"/>
+						</StackPanel>
+						</Grid>
+    				</GroupBox>
+                    <ProgressBar Height="22" Margin="122.257,10,10,0" VerticalAlignment="Top" DataContext="{Binding RunView}" Value="{Binding Progress}"/>
+    				<GroupBox Header="Параметры моделирования" Margin="-0.697,53.04,631,10" Foreground="Black" BorderBrush="#FF060A0E">
+    					<Grid>
+    						<Grid.ColumnDefinitions>
+    							<ColumnDefinition Width="auto"/>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="100"/>
+							</Grid.ColumnDefinitions>
+						                        
+                        <StackPanel Margin="10,10,10.82,7.552" Grid.Column="0" >
+							<TextBlock Text = "Время моделирования" FontSize="16"  Margin="0, 1, 0, 0"/>
+                            <TextBlock Text = "Количество устройств" FontSize="16"  Margin="0, 1, 0, 0"/>
+                            <TextBlock Text = "Емкость накопителя" FontSize="16"  Margin="0, 1, 0, 0"/>
+							<TextBlock Text = "Среднее время поступления требований" FontSize="16"  Margin="0, 1, 0, 0"/>
+							<TextBlock Text = "Среднее время обработки требований" FontSize="16"  Margin="0, 1, 0, 0"/>
+							<TextBlock Text = "Цена одного  устройства" FontSize="16"  Margin="0, 1, 0, 0"/>
+							<TextBlock Text = "Годовые текущие затраты на  обслуживание работающего" FontSize="16"  Margin="0, 1, 0, 0"/>
+							<TextBlock Text = "Годовые текущие затраты на  обслуживание бездействующего" FontSize="16" Margin="0, 1, 0, 0"/>
+							<TextBlock Text = "Потери от невыполнения  одного  требования" FontSize="16" Margin="0, 1, 0, 0"/>
+							<TextBlock Text = "Приведенные затраты на содержание одного требования" FontSize="16"/>
+							<TextBlock Text = "Годовой фонд времени работы системы" FontSize="16"/>
+							<TextBlock Text = "Коэффициент эффективности капитальных вложений" FontSize="16"/>
+						</StackPanel>
+						<StackPanel Margin="10,10,10.82,7.552" Grid.Column = "1">
+							<TextBlock Text = "[Tm]" FontSize="16"  Margin="0, 1, 0, 0"/>
+                            <TextBlock Text = "[S]" FontSize="16" Margin="0, 1, 0, 0"/>
+                            <TextBlock Text ="[L]" FontSize="16"  Margin="0, 1, 0, 0"/>
+							<TextBlock Text ="[Ua, c]" FontSize="16" Margin="0, 1, 0, 0"/>
+							<TextBlock Text ="[Us, c]" FontSize="16"  Margin="0, 1, 0, 0"/>
+							<TextBlock Text ="[C1, руб]" FontSize="16"  Margin="0, 1, 0, 0"/>
+							<TextBlock Text ="[C2, руб]" FontSize="16"  Margin="0, 1, 0, 0"/>
+							<TextBlock Text ="[C3, руб]" FontSize="16" Margin="0, 1, 0, 0"/>
+							<TextBlock Text ="[C4, руб]" FontSize="16" />
+							<TextBlock Text ="[C5, руб]" FontSize="16" />
+							<TextBlock Text ="[T, с]" FontSize="16"  />
+							<TextBlock Text ="[E, (руб/год)/руб]" FontSize="16"  />
+						</StackPanel>
+						<StackPanel Margin="10,10,10.82,7.552" Grid.Column = "2">
+								<TextBox Text = "{Binding RunView.ModelingTime}"/>
+                                <TextBox Text="{Binding CountDevice}"/>
+                                <TextBox Text="{Binding CountQueue}"/>
+                                <TextBox Text="{Binding IntervalTime}"/>
+                                <TextBox Text="{Binding ProcessingTime}"/>
+							<TextBox Text ="5*10^8"/>
+							<TextBox Text ="8*10^4"/>
+							<TextBox Text ="10^2"/>
+							<TextBox Text ="0.035"/>
+							<TextBox Text ="0.058"/>
+							<TextBox Text ="2.5*10^7"/>
+							<TextBox Text ="5*10^8"/>
+						</StackPanel>
+						</Grid>
+					</GroupBox>
+    			</Grid>
+    		</TabItem>
+    		<TabItem Header="TabItem">
+    			<Grid Background="#FFE5E5E5"/>
+    		</TabItem>
+    	</TabControl>
         
     </Grid>
 </Window>

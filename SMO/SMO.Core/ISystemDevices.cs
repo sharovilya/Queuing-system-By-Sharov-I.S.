@@ -8,11 +8,11 @@ namespace SMO.Core
     public interface ISystemDevices
     {
         bool ThereIsFreeDevice { get; }
-
         void Add(IDevice device);
-
-        event EventHandler<EventArgs> HandledRequestEvent;
-
+        
+        event EventHandler<RequestEventArg> RequestHandledEvent;
         void TakeFreeDevice(IRequest request);
+        void SetCountDevices(int countDevices);
+        void Reset();
     }
 }

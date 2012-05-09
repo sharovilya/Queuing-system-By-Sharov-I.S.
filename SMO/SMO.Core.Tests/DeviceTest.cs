@@ -7,7 +7,7 @@ namespace SMO.Core.Tests
     public class DeviceTest
     {
         ISystemClock clock;
-        IRandomGenerator generator;
+        ISystemGenerator generator;
         IDevice d1;
         IRequest request;
 
@@ -17,10 +17,11 @@ namespace SMO.Core.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            request = Request.New(1);
-            generator = new MockRandomGenerator();
+            generator = new MockSystemGenerator();
+            request = Request.New(1, generator.NextProcessingTime, 1);
+            
             clock = new SystemClock();
-            d1 = new Device(clock, generator);
+            d1 = new Device(clock);
             d1.RequestHandledEvent += d1_RequestHandledEvent;
         }
 

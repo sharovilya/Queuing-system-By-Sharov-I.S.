@@ -21,16 +21,17 @@ namespace SMO.Core.Tests
         public void TestInitialize()
         {
             clock = new SystemClock();
-            discipline = new FIFOQueuingSystem(clock, size);
+            discipline = new FIFOQueuingSystem();
+            discipline.TotalSize = size;
             InitializeQueue();
         }
 
         private void InitializeQueue()
         {
-            r1 = new Request(1); discipline.Put(r1);
-            r2 = new Request(2); discipline.Put(r2);
-            r3 = new Request(3); discipline.Put(r3);
-            r4 = new Request(4); discipline.Put(r4);
+            r1 = new Request(1, 1, 1); discipline.Put(r1);
+            r2 = new Request(2, 1, 2); discipline.Put(r2);
+            r3 = new Request(3, 1, 3); discipline.Put(r3);
+            r4 = new Request(4, 1, 4); discipline.Put(r4);
         }
 
         [TestMethod]
@@ -47,9 +48,9 @@ namespace SMO.Core.Tests
         {
             try
             {
-                discipline.Put(new Request(5));
-                discipline.Put(new Request(5));
-                discipline.Put(new Request(5));
+                discipline.Put(new Request(5, 1, 1));
+                discipline.Put(new Request(5, 1, 2));
+                discipline.Put(new Request(5, 1, 3));
 
                 Assert.Fail();
             }

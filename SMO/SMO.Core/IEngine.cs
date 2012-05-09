@@ -10,11 +10,13 @@ namespace SMO.Core
     {
         void GenerateNewRequest();
 
-        event EventHandler<NewRequestEventArg> NewRequestEvent;
+        event EventHandler<RequestEventArg> NewRequestEvent;
 
         int NextTimeForNewRequest { get; }
 
         int CountGeneratedRequest { get; }
+        
+        double AverageInterval { get; }
 
         void Stop();
     }

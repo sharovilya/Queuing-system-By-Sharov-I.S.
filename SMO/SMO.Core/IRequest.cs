@@ -8,5 +8,9 @@ namespace SMO.Core
     public interface IRequest 
     {
         int TimeBorn { get; }
+
+        int ProcessingTime { get; }
+
+        int CountInSystem { get; }
     }
 }

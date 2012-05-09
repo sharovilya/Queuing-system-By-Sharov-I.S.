@@ -8,12 +8,12 @@ namespace SMO.Core.Tests
     {
         IEngine engine;
         ISystemClock clock;
-        IRandomGenerator generator;
+        ISystemGenerator generator;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            generator = new MockRandomGenerator();
+            generator = new MockSystemGenerator();
             clock = new SystemClock();
             engine = new Engine(clock, generator);
             engine.NewRequestEvent += engine_NewRequestEvent;

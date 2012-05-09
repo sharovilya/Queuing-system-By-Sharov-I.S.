@@ -7,12 +7,13 @@ namespace SMO.Core.Tests
     [TestClass]
     public class QueuingSystemTest
     {
-        IRandomGenerator generator;
+        ISystemGenerator generator;
         ISystemClock clock;
         IEngine engine;
         IQueuingSystem system;
         ISystemDevices devices;
         IDisciplineQueuingSystem discipline;
+        ISystemStatistics statistics;
 
         IDevice d1;
         IDevice d2;
@@ -26,23 +27,24 @@ namespace SMO.Core.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            generator = new MockRandomGenerator();
+            generator = new MockSystemGenerator();
             clock = new SystemClock();
             engine = new Engine(clock, generator);
             devices = new SystemDevices();
-            discipline = new FIFOQueuingSystem(clock, SIZE_QUEUE);
-            system = new QueuingSystem(clock, engine, devices, discipline);
+            discipline = new FIFOQueuingSystem {TotalSize = 10};
+            statistics = new SystemStatistics();
+            system = new QueuingSystem(generator, clock, engine, devices, discipline, statistics);
 
             InitializeDevices();
         }
 
         public void InitializeDevices()
         {
-            d1 = new Device(clock, generator); system.Devices.Add(d1);
-            d2 = new Device(clock, generator); system.Devices.Add(d2);
-            d3 = new Device(clock, generator); system.Devices.Add(d3);
-            d4 = new Device(clock, generator); system.Devices.Add(d4);
-            d5 = new Device(clock, generator); system.Devices.Add(d5);
+            d1 = new Device(clock); system.Devices.Add(d1);
+            d2 = new Device(clock); system.Devices.Add(d2);
+            d3 = new Device(clock); system.Devices.Add(d3);
+            d4 = new Device(clock); system.Devices.Add(d4);
+            d5 = new Device(clock); system.Devices.Add(d5);
         }
 
         [TestMethod]

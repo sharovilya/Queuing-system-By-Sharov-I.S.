@@ -16,9 +16,9 @@ namespace SMO.Core
             device.RequestHandledEvent += OnRequestHandled;
         }
 
-        private void OnRequestHandled(object sender, EventArgs e)
+        private void OnRequestHandled(object sender, RequestEventArg e)
         {
-            var handler = HandledRequestEvent;
+            var handler = RequestHandledEvent;
             handler.Raise(sender, e);
         }
 
@@ -31,6 +31,7 @@ namespace SMO.Core
             }
         }
 
+        
         public bool ThereIsFreeDevice
         {
             get
@@ -39,6 +40,23 @@ namespace SMO.Core
             }
         }
 
-        public event EventHandler<EventArgs> HandledRequestEvent;
+        public event EventHandler<RequestEventArg> RequestHandledEvent;
+
+
+        public void SetCountDevices(int countDevices)
+        {
+            devices.Clear();
+            for (int i = 0; i < countDevices; i++)
+            {
+                IDevice newDevice = IoC.Resolve<IDevice>();
+                devices.Add(newDevice);
+                newDevice.RequestHandledEvent += OnRequestHandled;
+            }
+        }
+
+        public void Reset()
+        {
+            devices.ForEach(d => d.Release());
+        }
     }
 }

@@ -7,8 +7,10 @@ namespace SMO.Core
 {
     public interface IDevice
     {
-        event EventHandler<EventArgs> RequestHandledEvent;
+        event EventHandler<RequestEventArg> RequestHandledEvent;
         bool IsFree { get; }
         void Take(IRequest r);
+
+        void Release();
     }
 }

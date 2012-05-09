@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SMO.Core;
+using SMO.UI.Views;
 
 namespace SMO.UI
 {
@@ -20,9 +22,13 @@ namespace SMO.UI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainView v;
         public MainWindow()
         {
             InitializeComponent();
+            v = new MainView();
+            DataContext = v;
+            //var test = IoC.Resolve<IQueuingSystem>();
         }
     }
 }

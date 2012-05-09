@@ -7,37 +7,32 @@ namespace SMO.Core
 {
     public class Device : IDevice
     {
-        static int id = 0;
-
         private int currentRequestProcessingTime;
-        private int requestProcessingTime;
         private IRequest processingRequest;
-        private IRandomGenerator generator;
-        
-        int i;
 
-        public Device(ISystemClock clock, IRandomGenerator generator)
+        public Device(ISystemClock clock)
         {
-            this.generator = generator;
             clock.TickEvent += OnTickEvent;
-        
-            i = id++;
         }
 
         private void OnTickEvent(object sender, EventArgs e)
         {
             if (!IsFree)
             {
-                if (requestProcessingTime == currentRequestProcessingTime++)
+                if (processingRequest.ProcessingTime == currentRequestProcessingTime++)
                 {
-                    RequestHandledEvent.Raise(this, e);
+                    var evetArgs = new RequestEventArg(
+                        processingRequest.TimeBorn, 
+                        processingRequest.ProcessingTime, 
+                        processingRequest.CountInSystem
+                        );
+                    RequestHandledEvent.Raise(this, evetArgs);
                     Release();
-                    Console.WriteLine(i + " Event handled " + requestProcessingTime);
                 }
             }
         }
 
-        public event EventHandler<EventArgs> RequestHandledEvent;
+        public event EventHandler<RequestEventArg> RequestHandledEvent;
 
         public bool IsFree
         {
@@ -48,7 +43,6 @@ namespace SMO.Core
         {
             processingRequest = request;
             currentRequestProcessingTime = 0;
-            requestProcessingTime = generator.Next;
         }
 
         public void Release()
