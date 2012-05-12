@@ -9,7 +9,7 @@ namespace SMO.Core.Tests
         ISystemClock clock;
         ISystemGenerator generator;
         IDevice d1;
-        IRequest request;
+        Request request;
 
         int countHandledRequest;
         bool isHandled = false;

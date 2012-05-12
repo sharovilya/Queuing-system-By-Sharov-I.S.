@@ -7,12 +7,15 @@ namespace SMO.Core
 {
     public class Device : IDevice
     {
+        private static int countId = 0; 
+
         private int currentRequestProcessingTime;
-        private IRequest processingRequest;
+        private Request processingRequest;
 
         public Device(ISystemClock clock)
         {
             clock.TickEvent += OnTickEvent;
+            Id = countId++;
         }
 
         private void OnTickEvent(object sender, EventArgs e)
@@ -39,7 +42,7 @@ namespace SMO.Core
             get { return processingRequest == null; }
         }
 
-        public void Take(IRequest request)
+        public void Take(Request request)
         {
             processingRequest = request;
             currentRequestProcessingTime = 0;
@@ -53,6 +56,25 @@ namespace SMO.Core
         public int Time
         {
             get { return 0; }
+        }
+
+        public int Id { get;
+            private set;
+        }
+
+        public int RequestState
+        {
+            get { return currentRequestProcessingTime; }
+        }
+
+        public int RequestId
+        {
+            get
+            {
+                if (IsFree)
+                    return -1;
+                return processingRequest.CountInSystem;
+            }
         }
     }
 }

@@ -49,7 +49,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="MockSystemGenerator.cs" />
+    <Compile Include="GeneratorTest.cs" />
     <Compile Include="MockSystemComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueuingSystemTest.cs" />

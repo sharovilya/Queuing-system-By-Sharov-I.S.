@@ -1,0 +1,25 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:local="clr-namespace:SMO.UI.Control"
+	mc:Ignorable="d"
+	x:Class="SMO.UI.Control.ConfigurationControl"
+	x:Name="Configuration" Height="174" Width="380">
+	
+	<Grid x:Name="LayoutRoot" DataContext="{Binding}" Height="214" VerticalAlignment="Top">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="64*"/>
+			<RowDefinition Height="55*"/>
+		</Grid.RowDefinitions>
+		<local:UpDown x:Name ="deviceCount" Margin="237,45.5,15,34.091" Value="{Binding DeviceCount, Mode=TwoWay}" d:LayoutOverrides="VerticalMargin"/>
+        <local:UpDown x:Name ="queueSize" Margin="237,5,15,74.591" Value="{Binding SizeQueue, Mode=TwoWay}" d:LayoutOverrides="VerticalMargin"/>
+        <local:UpDown x:Name ="interval" Margin="237,86,15,92.499" Value="{Binding AvgIntervalTime, Mode=TwoWay}" Grid.RowSpan="2" d:LayoutOverrides="VerticalMargin"/>
+        <local:UpDown x:Name ="processing" Margin="237,11.408,15,51.999" Value="{Binding AvgProcessingTime, Mode=TwoWay}" Grid.Row="1"/>
+		<TextBlock HorizontalAlignment="Left" Height="39" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" FontSize="16" TextAlignment="Center" Panel.ZIndex="-30"><Run Language="ru-ru" Text="Колличество устройств"/></TextBlock>
+		<TextBlock HorizontalAlignment="Left" Height="39" Margin="10,52.5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" FontSize="16" TextAlignment="Center" Panel.ZIndex="-30"><Run Language="ru-ru" Text="Емкость очереди"/></TextBlock>
+		<TextBlock HorizontalAlignment="Left" Height="39" Margin="10,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" FontSize="16" TextAlignment="Center" Panel.ZIndex="-30" Grid.RowSpan="2"><Run Language="ru-ru" Text="Время поступления заявок"/></TextBlock>
+		<TextBlock HorizontalAlignment="Left" Height="39" Margin="10,0,0,37.908" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="222" FontSize="16" TextAlignment="Center" Panel.ZIndex="-30" Grid.Row="1"><Run Language="ru-ru" Text="Время обслуживания заявки"/></TextBlock>
+	</Grid>
+</UserControl>

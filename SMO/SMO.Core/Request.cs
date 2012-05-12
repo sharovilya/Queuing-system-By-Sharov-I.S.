@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SMO.Core
 {
-    public class Request : IRequest
+    public class Request
     {
         public Request(int timeBorn, int processingTime, int countInSystem)
         {
@@ -30,7 +30,7 @@ namespace SMO.Core
             private set;
         }
 
-        public static IRequest New(int timeBorn, int processingTime, int countInSystem)
+        public static Request New(int timeBorn, int processingTime, int countInSystem)
         {
             return new Request(timeBorn, processingTime, countInSystem);
         }

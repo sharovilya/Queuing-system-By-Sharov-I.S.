@@ -21,7 +21,7 @@ namespace SMO.UI.Views
 
         public StatisticsView()
         {
-            statistics = IoC.Resolve<ISystemStatistics>();
+          //  statistics = IoC.Resolve<ISystemStatistics>();
 
             IntervalTime = 0.0;
         }

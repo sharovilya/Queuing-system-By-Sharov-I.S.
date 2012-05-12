@@ -5,9 +5,9 @@ using System.Text;
 
 namespace SMO.Core
 {
-    public class FIFOQueuingSystem : IDisciplineQueuingSystem   
+    public class Fifo : ISystemDiscipline   
     {
-        private LinkedList<IRequest> requests = new LinkedList<IRequest>();
+        private readonly LinkedList<Request> requests = new LinkedList<Request>();
 
         public int TotalSize
         {
@@ -15,32 +15,37 @@ namespace SMO.Core
             set;
         }
 
+        public List<Request> Children
+        {
+            get { return requests.ToList(); }
+        }
+
         public void Reset()
         {
            requests.Clear();
         }
 
-        public long CountRequestsInQueue
+        public int CountRequestsInQueue
         {
             get { return requests.Count; }
         }
         
-        public FIFOQueuingSystem()
+        public Fifo()
         {
             // TODO переделать
             TotalSize = 10;
         }
 
-        public void Put(IRequest r)
+        public void Put(Request r)
         {
             if (CountRequestsInQueue > TotalSize)
                 throw new InvalidOperationException("Queue is full!");
             requests.AddLast(r);
         }
 
-        public IRequest PullOut()
+        public Request PullOut()
         {
-            IRequest request = requests.First();
+            Request request = requests.First();
             requests.RemoveFirst();
             return request;
         }

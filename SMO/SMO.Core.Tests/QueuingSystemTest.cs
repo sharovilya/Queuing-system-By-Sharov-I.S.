@@ -1,50 +1,60 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SMO.Core;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SMO.Core.Tests
 {
     [TestClass]
     public class QueuingSystemTest
     {
-        ISystemGenerator generator;
-        ISystemClock clock;
-        IEngine engine;
-        IQueuingSystem system;
-        ISystemDevices devices;
-        IDisciplineQueuingSystem discipline;
-        ISystemStatistics statistics;
-
-        IDevice d1;
-        IDevice d2;
-        IDevice d3;
-        IDevice d4;
-        IDevice d5;
-                
         private const int COUNT_TEST_REQUEST = 10;
         private const int SIZE_QUEUE = 10;
+        private ISystemClock clock;
+        private ISystemConfiguration configuration;
+
+        private Device d1;
+        private Device d2;
+        private Device d3;
+        private Device d4;
+        private Device d5;
+        private ISystemDevices devices;
+        private ISystemDiscipline systemDiscipline;
+        private IEngine engine;
+        private ISystemGenerator generator;
+        private ISystemStatistics statistics;
+        private IQueuingSystem system;
 
         [TestInitialize]
         public void TestInitialize()
         {
             generator = new MockSystemGenerator();
+
             clock = new SystemClock();
             engine = new Engine(clock, generator);
-            devices = new SystemDevices();
-            discipline = new FIFOQueuingSystem {TotalSize = 10};
+            devices = new SystemDevices(clock);
+
+
+            systemDiscipline = new Fifo {TotalSize = 10};
+
+            configuration = new SystemConfiguration(generator, devices, systemDiscipline);
+
             statistics = new SystemStatistics();
-            system = new QueuingSystem(generator, clock, engine, devices, discipline, statistics);
+
+            system = new QueuingSystem(configuration, clock, engine, statistics);
 
             InitializeDevices();
         }
 
         public void InitializeDevices()
         {
-            d1 = new Device(clock); system.Devices.Add(d1);
-            d2 = new Device(clock); system.Devices.Add(d2);
-            d3 = new Device(clock); system.Devices.Add(d3);
-            d4 = new Device(clock); system.Devices.Add(d4);
-            d5 = new Device(clock); system.Devices.Add(d5);
+            d1 = new Device(clock);
+            devices.Add(d1);
+            d2 = new Device(clock);
+            devices.Add(d2);
+            d3 = new Device(clock);
+            devices.Add(d3);
+            d4 = new Device(clock);
+            devices.Add(d4);
+            d5 = new Device(clock);
+            devices.Add(d5);
         }
 
         [TestMethod]
@@ -83,7 +93,7 @@ namespace SMO.Core.Tests
             }
 
             Assert.IsTrue(!d1.IsFree && !d3.IsFree && !d3.IsFree && !d4.IsFree && !d5.IsFree);
-            
+
             for (int id = 0; id < SIZE_QUEUE; id++)
             {
                 engine.GenerateNewRequest();
@@ -91,15 +101,15 @@ namespace SMO.Core.Tests
 
             engine.Stop();
 
-            Assert.AreEqual(SIZE_QUEUE, discipline.CountRequestsInQueue);
-            Assert.IsTrue(discipline.IsFull);
+            Assert.AreEqual(SIZE_QUEUE, systemDiscipline.CountRequestsInQueue);
+            Assert.IsTrue(systemDiscipline.IsFull);
 
             while (system.AreRequests)
             {
                 clock.Tick();
             }
 
-            Assert.IsTrue(discipline.IsEmpty);
+            Assert.IsTrue(systemDiscipline.IsEmpty);
             Assert.AreEqual(countDevices + SIZE_QUEUE, system.CountHandledRequest);
             Assert.IsTrue(d1.IsFree && d3.IsFree && d3.IsFree && d4.IsFree && d5.IsFree);
         }

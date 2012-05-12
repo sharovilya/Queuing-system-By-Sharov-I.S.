@@ -5,15 +5,13 @@ namespace SMO.Core
 {
     public class SystemGenerator : ISystemGenerator
     {
-        private const double M = 2147483647;
-        private const double A = 630360016;
+        private double M = Math.Pow(2.0, 31.0) - 1.0;
+        private double A = 630360016;
 
         private readonly List<int> intervals = new List<int>();
         private readonly List<int> processing = new List<int>();
         private double current = 321160;
-        private int intervalTime;
-        private int processingTime;
-
+        
         #region ISystemGenerator Members
 
         public int NextProcessingTime
@@ -26,19 +24,18 @@ namespace SMO.Core
             get { return CalculationInterval(); }
         }
 
+        public int AvgIntervalTime { get;
+            set;
+        }
+
+        public int AvgProcessingTime
+        {
+            get; set;
+        }
+
         public int GetTimeFor(int countRequest)
         {
             return -1;
-        }
-
-        public void SetAvgProcessingTime(int processingTime)
-        {
-            this.processingTime = processingTime;
-        }
-
-        public void SetAvgIntervalTime(int intervalTime)
-        {
-            this.intervalTime = intervalTime;
         }
 
         public void Reset()
@@ -52,22 +49,22 @@ namespace SMO.Core
 
         private int CalculationInterval()
         {
-            var result = (int) (-intervalTime*Math.Log(Calculation()));
+            var result = (int) (-AvgIntervalTime*Math.Log(Calculation()));
             intervals.Add(result);
             return result;
         }
 
         private int CalculationProcessing()
         {
-            var result = (int) (-processingTime*Math.Log(Calculation()));
+            var result = (int) (-AvgProcessingTime*Math.Log(Calculation()));
             processing.Add(result);
             return result;
         }
 
-        private double Calculation()
+        public double Calculation()
         {
-            current = ((A*current)%M)/M;
-            return current;
+            current = (A*current)%M;
+            return current / M;
         }
     }
 }

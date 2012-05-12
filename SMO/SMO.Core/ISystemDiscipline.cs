@@ -5,14 +5,15 @@ using System.Text;
 
 namespace SMO.Core
 {
-    public interface IDisciplineQueuingSystem
+    public interface ISystemDiscipline
     {
-        void Put(IRequest r1);
-        IRequest PullOut();
+        void Put(Request r1);
+        Request PullOut();
         bool IsFull { get; }
-        long CountRequestsInQueue { get; }
+        int CountRequestsInQueue { get; }
         bool IsEmpty { get; }
         int TotalSize { get; set; }
+        List<Request> Children { get; }
         void Reset();
     }
 }

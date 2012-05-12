@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using SMO.Core;
@@ -8,66 +9,50 @@ namespace SMO.UI
 {
     public class RunView : BaseView
     {
-        private readonly StatisticsView StatisticsView;
         private readonly ISystemClock clock;
-        private readonly RelayCommand runCommand;
         private readonly IQueuingSystem system;
+        private readonly RelayCommand runCommand;
+        private readonly RelayCommand stopCommand;
+        private readonly RelayCommand continueCommand;
+        private readonly RelayCommand resetCommand;
+        
+        private bool stopped;
+        
 
-        private int modelingTime;
-        private bool notRunning;
-
-        private double progress;
-
-        public RunView(StatisticsView statisticsView)
+        public RunView(IQueuingSystem system, ISystemClock clock)
         {
-            StatisticsView = statisticsView;
-
-            ModelingTime = 10000;
-            NotRunning = true;
-
-            clock = IoC.Resolve<ISystemClock>();
-            system = IoC.Resolve<IQueuingSystem>();
-
+            this.clock = clock;
+            this.system = system;
             runCommand = new RelayCommand(Run);
+            stopCommand = new RelayCommand(Stop);
+            continueCommand = new RelayCommand(Continue);
+            resetCommand = new RelayCommand(Reset);
         }
 
-        public int ModelingTime
+        private void Reset(object obj)
         {
-            get { return modelingTime; }
-            set
-            {
-                if (modelingTime != value)
-                {
-                    modelingTime = value;
-                    Fire("ModelingTime");
-                }
-            }
+            stopped = true;
+            system.Reset();
         }
 
-        public double Progress
+        private void Continue(object obj)
         {
-            get { return progress; }
-            set
-            {
-                if (progress != value)
-                {
-                    progress = value;
-                    Fire("Progress");
-                }
-            }
+            stopped = false;
         }
 
-        public bool NotRunning
+        private void Stop(object obj)
         {
-            get { return notRunning; }
-            set
-            {
-                if (notRunning != value)
-                {
-                    notRunning = value;
-                    Fire("NotRunning");
-                }
-            }
+            stopped = true;
+        }
+
+        public RelayCommand ContinueCommand
+        {
+            get { return continueCommand; }
+        }
+
+        public RelayCommand ResetCommand
+        {
+            get { return resetCommand; }
         }
 
         public RelayCommand RunCommand
@@ -75,24 +60,24 @@ namespace SMO.UI
             get { return runCommand; }
         }
 
+        public RelayCommand StopCommand
+        {
+            get { return stopCommand; }
+        }
+
         private void Run(object obj)
         {
             system.Reset();
-            NotRunning = false;
+            stopped = false;
             Task.Factory.StartNew(
-                () =>
-                    {
-                        int time = 0;
-                        while (modelingTime != time++)
+                () => {
+                        while (!stopped)
                         {
                             clock.Tick();
-                            Progress = time / (double)modelingTime * 100;
-                            StatisticsView.UpdateStatistics();
+                            Thread.Sleep(10);
                         }
                     }
                 );
-
-            NotRunning = true;
         }
     }
 

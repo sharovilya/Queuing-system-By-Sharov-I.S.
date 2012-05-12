@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -13,18 +11,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SMO.Core;
-using SMO.UI.Views;
+using Microsoft.Practices.Unity;
 
-namespace SMO.UI
+namespace SMO.UI.Control
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-    }
+	/// <summary>
+	/// Interaction logic for RunnerControl.xaml
+	/// </summary>
+	public partial class RunnerControl : UserControl
+	{
+		public RunnerControl()
+		{
+			this.InitializeComponent();
+		    DataContext = App.Container.Resolve<RunView>();
+		}
+	}
 }

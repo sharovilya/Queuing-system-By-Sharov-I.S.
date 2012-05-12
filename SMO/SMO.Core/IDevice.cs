@@ -9,7 +9,7 @@ namespace SMO.Core
     {
         event EventHandler<RequestEventArg> RequestHandledEvent;
         bool IsFree { get; }
-        void Take(IRequest r);
+        void Take(Request r);
 
         void Release();
     }

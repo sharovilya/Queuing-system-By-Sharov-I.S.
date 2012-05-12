@@ -8,9 +8,15 @@ namespace SMO.Core
 {
     public class SystemDevices : ISystemDevices
     {
-        private List<IDevice> devices = new List<IDevice>();
+        private List<Device> devices = new List<Device>();
+        private ISystemClock clock;
 
-        public void Add(IDevice device)
+        public SystemDevices(ISystemClock clock)
+        {
+            this.clock = clock;
+        }
+
+        public void Add(Device device)
         {
             devices.Add(device);
             device.RequestHandledEvent += OnRequestHandled;
@@ -22,7 +28,7 @@ namespace SMO.Core
             handler.Raise(sender, e);
         }
 
-        public void TakeFreeDevice(IRequest request)
+        public void TakeFreeDevice(Request request)
         {
             var device = devices.Find(d => d.IsFree);
             if (device != null)
@@ -40,19 +46,27 @@ namespace SMO.Core
             }
         }
 
-        public event EventHandler<RequestEventArg> RequestHandledEvent;
-
-
-        public void SetCountDevices(int countDevices)
+        public List<Device> Children
         {
-            devices.Clear();
-            for (int i = 0; i < countDevices; i++)
+            get { return devices; }
+        }
+
+        public int Count
+        {
+            get { return Children.Count; }
+            set
             {
-                IDevice newDevice = IoC.Resolve<IDevice>();
-                devices.Add(newDevice);
-                newDevice.RequestHandledEvent += OnRequestHandled;
+                devices.Clear();
+                for (int i = 0; i < value; i++)
+                {
+                    Device newDevice = new Device(clock);
+                    devices.Add(newDevice);
+                    newDevice.RequestHandledEvent += OnRequestHandled;
+                }
             }
         }
+
+        public event EventHandler<RequestEventArg> RequestHandledEvent;
 
         public void Reset()
         {

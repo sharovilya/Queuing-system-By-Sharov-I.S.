@@ -4,7 +4,7 @@
     {
         long CountRequestInSystem { get; }
 
-        ISystemDevices Devices { get; }
+        ISystemConfiguration Configuration { get; }
 
         int CountHandledRequest { get; }
 
@@ -12,11 +12,7 @@
 
         bool AreRequests { get; }
 
-        ISystemGenerator Generator { get; }
-
         ISystemStatistics Statistics { get; }
-
-        IDisciplineQueuingSystem Discipline { get; }
 
         int CountRejectedRequests { get; }
         void OnRequestHandled(object sender, RequestEventArg e);

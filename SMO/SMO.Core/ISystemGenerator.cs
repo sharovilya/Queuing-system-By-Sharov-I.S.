@@ -9,12 +9,10 @@ namespace SMO.Core
     {
         int NextProcessingTime { get; }
         int NextIntervalTime { get; }
+        int AvgIntervalTime { get; set; }
+        int AvgProcessingTime { get; set; }
 
         int GetTimeFor(int countRequest);
-
-        void SetAvgProcessingTime(int processingTime);
-
-        void SetAvgIntervalTime(int intervalTime);
         void Reset();
     }
 }

@@ -16,7 +16,7 @@ namespace SMO.Core.Tests
         {
             generator = new MockSystemGenerator();
             clock = new SystemClock();
-            devices = new SystemDevices();
+            devices = new SystemDevices(clock);
 
             devices.Add(new Device(clock));
             devices.Add(new Device(clock));

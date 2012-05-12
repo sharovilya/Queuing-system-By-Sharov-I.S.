@@ -1,38 +1,28 @@
 ﻿using System;
+using SMO.Core.Tests;
 
 namespace SMO.Core
 {
     public class QueuingSystem : IQueuingSystem
     {
-        public QueuingSystem(ISystemGenerator generator,
-                             ISystemClock clock,
-                             IEngine engine,
-                             ISystemDevices devices,
-                             IDisciplineQueuingSystem discipline,
-                             ISystemStatistics statistics)
+        public QueuingSystem(ISystemConfiguration configuration, ISystemClock clock, IEngine engine, ISystemStatistics statistics)
         {
-            Devices = devices;
-            Generator = generator;
-            Discipline = discipline;
             Statistics = statistics;
+            Configuration = configuration;
 
-            devices.RequestHandledEvent += OnRequestHandled;
+            Configuration.Devices.RequestHandledEvent += OnRequestHandled;
             engine.NewRequestEvent += OnNewRequest;
             clock.TickEvent += OnTickEvent;
         }
 
-        public ISystemGenerator Generator { get; private set; }
+        public ISystemConfiguration Configuration { get; private set; }
 
         public ISystemStatistics Statistics { get; private set; }
-
-        public IDisciplineQueuingSystem Discipline { get; private set; }
 
         public int CountRejectedRequests { get; private set; }
 
         #region IQueuingSystem Members
-
-        public ISystemDevices Devices { get; private set; }
-
+        
         public bool AreRequests
         {
             get { return CountRequestInSystem > 0; }
@@ -55,9 +45,11 @@ namespace SMO.Core
         public void Reset()
         {
             Statistics.Reset();
-            Generator.Reset();
-            Devices.Reset();
-            Discipline.Reset();
+
+            Configuration.Generator.Reset();
+            Configuration.Devices.Reset();
+            Configuration.Discipline.Reset();
+
             CountHandledRequest = 0;
             CountRequestInSystem = 0;
             Time = 0;
@@ -68,16 +60,16 @@ namespace SMO.Core
         private void OnNewRequest(object sender, RequestEventArg e)
         {
             Statistics.IntervalTime.Score(e.NextTimeForNewRequest);
-            IRequest newRequest = MakeNewRequest(e);
+            Request newRequest = MakeNewRequest(e);
 
-            if (Devices.ThereIsFreeDevice)
+            if (Configuration.Devices.ThereIsFreeDevice)
             {
-                Devices.TakeFreeDevice(newRequest);
+                Configuration.Devices.TakeFreeDevice(newRequest);
                 CountRequestInSystem++;
             }
-            else if (!Discipline.IsFull)
+            else if (!Configuration.Discipline.IsFull)
             {
-                Discipline.Put(newRequest);
+                Configuration.Discipline.Put(newRequest);
                 CountRequestInSystem++;
             }
             else
@@ -87,9 +79,9 @@ namespace SMO.Core
             }
         }
 
-        private IRequest MakeNewRequest(RequestEventArg e)
+        private Request MakeNewRequest(RequestEventArg e)
         {
-            int processingTime = Generator.NextProcessingTime;
+            int processingTime = Configuration.Generator.NextProcessingTime;
             Statistics.ServiceTime.Score(processingTime);
             return Request.New(Time, processingTime, e.CountRequestsCaughtInSystem);
         }
@@ -98,13 +90,13 @@ namespace SMO.Core
         {
             Tick();
 
-            if (!Discipline.IsEmpty)
+            if (!Configuration.Discipline.IsEmpty)
             {
-                Statistics.NumberOfRequestsInQueue.Score(Discipline.CountRequestsInQueue);
-                if (Devices.ThereIsFreeDevice)
+                Statistics.NumberOfRequestsInQueue.Score(Configuration.Discipline.CountRequestsInQueue);
+                if (Configuration.Devices.ThereIsFreeDevice)
                 {
-                    var request = Discipline.PullOut();
-                    Devices.TakeFreeDevice(request);
+                    var request = Configuration.Discipline.PullOut();
+                    Configuration.Devices.TakeFreeDevice(request);
                     Statistics.WaitingTimeInQueue.Score(Time - request.TimeBorn);
                 }
             }

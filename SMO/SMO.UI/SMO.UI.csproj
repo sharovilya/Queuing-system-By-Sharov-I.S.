@@ -54,6 +54,7 @@
     <StartupObject>SMO.UI.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -73,10 +74,43 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Views\MainView.cs" />
-    <Compile Include="Views\ParamModelingView.cs" />
+    <Compile Include="Control\ConfigurationControl.xaml.cs">
+      <DependentUpon>ConfigurationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\DevicesControl.xaml.cs">
+      <DependentUpon>DevicesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\DisciplineControl.xaml.cs">
+      <DependentUpon>DisciplineControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\RunnerControl.xaml.cs">
+      <DependentUpon>RunnerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\UpDownControl.xaml.cs">
+      <DependentUpon>UpDownControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BaseView.cs" />
+    <Compile Include="Views\ConfigurationView.cs" />
+    <Compile Include="Views\DevicesView.cs" />
+    <Compile Include="Views\DisciplineView.cs" />
     <Compile Include="Views\RunView.cs" />
     <Compile Include="Views\StatisticsView.cs" />
+    <Page Include="Control\ConfigurationControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\DevicesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\DisciplineControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\RunnerControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -89,6 +123,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Simple Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ArrowStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\UpDownControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -145,6 +191,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

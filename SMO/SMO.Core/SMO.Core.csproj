@@ -43,14 +43,14 @@
   <ItemGroup>
     <Compile Include="AverageScore.cs" />
     <Compile Include="Device.cs" />
-    <Compile Include="FIFOQueuingSystem.cs" />
-    <Compile Include="IDisciplineQueuingSystem.cs" />
-    <Compile Include="IoC.cs" />
-    <Compile Include="IRequest.cs" />
+    <Compile Include="Fifo.cs" />
+    <Compile Include="ISystemDiscipline.cs" />
+    <Compile Include="ISystemConfiguration.cs" />
     <Compile Include="ISystemStatistics.cs" />
     <Compile Include="MockSystemGenerator.cs" />
     <Compile Include="NewRequestEventArg.cs" />
     <Compile Include="Request.cs" />
+    <Compile Include="SystemConfiguration.cs" />
     <Compile Include="SystemDevices.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="EventExtension.cs" />

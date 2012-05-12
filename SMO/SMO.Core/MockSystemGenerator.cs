@@ -11,20 +11,21 @@ namespace SMO.Core.Tests
 
         public int NextIntervalTime { get; private set; }
 
+        public int AvgIntervalTime
+        {
+            get { return NextIntervalTime; }
+            set { NextIntervalTime = value; }
+        }
+
+        public int AvgProcessingTime
+        {
+            get { return NextProcessingTime; }
+            set { NextProcessingTime = value; }
+        }
 
         public int GetTimeFor(int countRequest)
         {
             return NextProcessingTime * countRequest + countRequest;
-        }
-
-        public void SetAvgProcessingTime(int processingTime)
-        {
-            NextProcessingTime = processingTime;
-        }
-
-        public void SetAvgIntervalTime(int intervalTime)
-        {
-            NextIntervalTime = intervalTime;
         }
 
         public void Reset()
