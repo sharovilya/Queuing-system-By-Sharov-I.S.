@@ -68,10 +68,5 @@ namespace SMO.UI.Views
                 Fire("DeviceCount");
             }
         }
-
-        public void Update(object sender, EventArgs e)
-        {
-               GetType().GetProperties().ToList().ForEach(p => Fire(p.Name));
-        }
     }
 }

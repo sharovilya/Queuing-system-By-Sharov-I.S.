@@ -24,15 +24,7 @@ namespace SMO.UI.Control
 		public DisciplineControl()
 		{
 			this.InitializeComponent();
-
-        //    ISystemClock clock = new SystemClock();
-        //    ISystemDiscipline d = new Fifo();
-        //    d.Put(new Request(1,1,1));
-        //    d.Put(new Request(2, 2, 2));
-        //    d.Put(new Request(3, 3, 3));
-        //    d.Put(new Request(4, 4, 4));
-        //    DataContext = new DisciplineView(d, clock);
-		    DataContext = App.Container.Resolve<DisciplineView>();
+		   // DataContext = App.Container.Resolve<DisciplineView>();
 		}
 	}
 }

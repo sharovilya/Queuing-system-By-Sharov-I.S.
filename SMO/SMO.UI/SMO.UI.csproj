@@ -54,6 +54,13 @@
     <StartupObject>SMO.UI.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DynamicDataDisplay, Version=0.3.0.0, Culture=neutral, PublicKeyToken=5b7d744a7263923f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DynamicDataDisplay.dll</HintPath>
+    </Reference>
+    <Reference Include="DynamicDataDisplay.resources">
+      <HintPath>bin\Debug\ru-ru\DynamicDataDisplay.resources.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -83,8 +90,17 @@
     <Compile Include="Control\DisciplineControl.xaml.cs">
       <DependentUpon>DisciplineControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Control\GraphGenerator.xaml.cs">
+      <DependentUpon>GraphGenerator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Control\RunnerControl.xaml.cs">
       <DependentUpon>RunnerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\StatisticsControl.xaml.cs">
+      <DependentUpon>StatisticsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\StatisticsItemControl.xaml.cs">
+      <DependentUpon>StatisticsItemControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Control\UpDownControl.xaml.cs">
       <DependentUpon>UpDownControl.xaml</DependentUpon>
@@ -93,6 +109,7 @@
     <Compile Include="Views\ConfigurationView.cs" />
     <Compile Include="Views\DevicesView.cs" />
     <Compile Include="Views\DisciplineView.cs" />
+    <Compile Include="Views\GeneratorView.cs" />
     <Compile Include="Views\RunView.cs" />
     <Compile Include="Views\StatisticsView.cs" />
     <Page Include="Control\ConfigurationControl.xaml">
@@ -107,7 +124,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Control\GraphGenerator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Control\RunnerControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\StatisticsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\StatisticsItemControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -30,8 +30,6 @@ namespace SMO.UI.Control
 	        }
         }
 
-	    public event EventHandler<EventArgs> UpdateEvent; 
-
 		public UpDown()
 		{
 			this.InitializeComponent();
@@ -60,7 +58,6 @@ namespace SMO.UI.Control
         private void UpdateText(string newText)
         {
             txtValue.Text = newText;
-            UpdateEvent.Raise(this, EventArgs.Empty);
         }
 	}
 }

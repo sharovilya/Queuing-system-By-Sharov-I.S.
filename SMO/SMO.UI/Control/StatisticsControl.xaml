@@ -4,12 +4,17 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d"
-	x:Class="SMO.UI.StatisticsControl"
-	xmlns="clr-namespace:SMO.UI.Con"
-	x:Name="StatisticsControl"
-	d:DesignWidth="640" d:DesignHeight="480">
+	xmlns:Control="clr-namespace:SMO.UI.Control"
+	x:Class="SMO.UI.Control.StatisticsControl"
+	x:Name="UserControl">
 
-	<Grid x:Name="LayoutRoot">
-	
-	</Grid>
+	<StackPanel Orientation="Vertical" d:LayoutOverrides="Height" DataContext="{Binding}">
+        <Control:StatisticsItemControl  Description="Kоэффициент загрузки системы" Value="{Binding UtilizationFactorOfSystem}"/>
+        <Control:StatisticsItemControl  Description="Cр. время ожидания заявки в очереди" Value="{Binding WaitingTimeInQueue}"/>
+        <Control:StatisticsItemControl  Description="Cр. время пребывания заявки в системе" Value="{Binding WaitingTimeInSystem}"/>
+        <Control:StatisticsItemControl  Description="Средняя длина очереди " Value="{Binding NumberOfRequestsInQueue}"/>
+        <Control:StatisticsItemControl  Description="Среднее число заявок в системе " Value="{Binding NumberOfRequestsInSystem}"/>
+        <Control:StatisticsItemControl  Description="Абс. пропускная способность" Value="{Binding AbsolutBandwidth}"/>
+        <Control:StatisticsItemControl  Description="Отн. пропускная способность" Value="{Binding RelativeBandwidth}"/>
+	</StackPanel>
 </UserControl>

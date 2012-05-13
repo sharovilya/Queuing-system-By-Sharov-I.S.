@@ -16,14 +16,28 @@ using Microsoft.Practices.Unity;
 namespace SMO.UI.Control
 {
 	/// <summary>
-	/// Interaction logic for RunnerControl.xaml
+	/// Interaction logic for GraphGenerator.xaml
 	/// </summary>
-	public partial class RunnerControl : UserControl
+	public partial class GraphGenerator : UserControl
 	{
-		public RunnerControl()
+	    private ISystemClock clock;
+	    private ISystemGenerator generator;
+
+		public GraphGenerator()
 		{
 			this.InitializeComponent();
-		   // DataContext = App.Container.Resolve<RunView>();
+
+		    clock = App.Container.Resolve<ISystemClock>();
+		    generator = App.Container.Resolve<ISystemGenerator>();
+
+            clock.TickEvent += clock_TickEvent;
+
+        //    LineG
 		}
+
+        void clock_TickEvent(object sender, EventArgs e)
+        {
+            
+        }
 	}
 }

@@ -5,16 +5,16 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d"
 	x:Class="SMO.UI.Control.RunnerControl"
-	x:Name="UserControl" Height="120.333" Width="494.667">
+	x:Name="UserControl" Height="328.333" Width="126.667">
 
 	<Grid x:Name="LayoutRoot" DataContext="{Binding}">
-        <Button Command="{Binding StopCommand}" Content="Остановить" HorizontalAlignment="Left" Margin="127.5,45.22,0,0" VerticalAlignment="Top" Width="117.5" Background="#FFE0B26F" BorderBrush="#FFFF6800"/>
-		<Button Command="{Binding RunCommand}" Content="Начать" HorizontalAlignment="Left" Margin="5,45.22,0,0" VerticalAlignment="Top" Width="117.5" Background="#FFE0B26F" BorderBrush="#FFFF6800"/>
-		<Button Content="Шаг вперед" HorizontalAlignment="Left" Margin="262.833,45.053,0,0" VerticalAlignment="Top" Width="224.834" Background="#FFE0B26F" BorderBrush="#FFFF6800"/>
-		<Button Content="Пошаговый режим" HorizontalAlignment="Left" Margin="262.833,8.773,0,0" VerticalAlignment="Top" Width="226.334" Background="#FF9EFF66" BorderBrush="#FFFF6800"/>
-		<Button Content="Шаг назад" HorizontalAlignment="Left" Margin="262.833,81.5,0,0" VerticalAlignment="Top" Width="224.834" Background="#FFE0B26F" BorderBrush="#FFFF6800"/>
-		<Button Content="Автоматический режим" HorizontalAlignment="Left" Margin="5,8.773,0,0" VerticalAlignment="Top" Width="240" Background="#FF9EFF66" BorderBrush="#FFFF6800"/>
-        <Button Command="{Binding ContinueCommand}" Content="Продолжить" HorizontalAlignment="Left" Margin="5,81.5,0,0" VerticalAlignment="Top" Width="117.5" Background="#FFE0B26F" BorderBrush="#FFFF6800"/>
-        <Button Command="{Binding ResetCommand}" Content="Сбросить" HorizontalAlignment="Left" Margin="127.5,81.5,0,0" VerticalAlignment="Top" Width="117.5" Background="#FFE0B26F" BorderBrush="#FFFF6800"/>
+        <Button Command="{Binding StopCommand}" Content="Остановить" Margin="5,117.78,0,0" VerticalAlignment="Top" Background="#FFE0B26F" BorderBrush="#FFFF6800" HorizontalAlignment="Left" Width="117.5"/>
+		<Button Command="{Binding RunCommand}" Content="Начать" Margin="5,45.22,0,0" VerticalAlignment="Top" Background="#FFE0B26F" BorderBrush="#FFFF6800" HorizontalAlignment="Left" Width="117.5"/>
+		<Button Content="Шаг вперед" Margin="2.667,254.606,0,0" VerticalAlignment="Top" Background="#FFE0B26F" BorderBrush="#FFFF6800" HorizontalAlignment="Left" Width="119.833"/>
+		<Button Content="Шаг. режим" Margin="2.667,218.326,0,0" VerticalAlignment="Top" Background="#FF9EFF66" BorderBrush="#FFFF6800" HorizontalAlignment="Left" Width="119.833"/>
+		<Button Content="Шаг назад" Margin="2.667,291.053,0,0" VerticalAlignment="Top" Background="#FFE0B26F" BorderBrush="#FFFF6800" HorizontalAlignment="Left" Width="119.833"/>
+		<Button Content="Авто. режим" Margin="5,8.773,0,0" VerticalAlignment="Top" Background="#FF9EFF66" BorderBrush="#FFFF6800" HorizontalAlignment="Left" Width="117.5"/>
+        <Button Command="{Binding ContinueCommand}" Content="Продолж." Margin="5,81.5,0,0" VerticalAlignment="Top" Background="#FFE0B26F" BorderBrush="#FFFF6800" HorizontalAlignment="Left" Width="117.5"/>
+        <Button Command="{Binding ResetCommand}" Content="Сбросить" Margin="2.667,154.06,0,0" VerticalAlignment="Top" Background="#FFE0B26F" BorderBrush="#FFFF6800" HorizontalAlignment="Left" Width="119.833"/>
 	</Grid>
 </UserControl>

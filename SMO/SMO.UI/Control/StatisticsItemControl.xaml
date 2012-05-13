@@ -1,0 +1,18 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="SMO.UI.Control.StatisticsItemControl"
+	x:Name="UserControl" Height="26" Width="404">
+
+	<Grid x:Name="LayoutRoot">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="3*"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<TextBlock x:Name="txtDescription" TextAlignment="Left" Grid.Column="0"	FontSize="16"><Run Text="Kоэффициент загрузки системы"/></TextBlock>
+		<TextBlock x:Name="txtValue" TextAlignment="Center" Grid.Column="1" FontSize="16"><Run Text="0.0"/></TextBlock>
+	</Grid>
+</UserControl>

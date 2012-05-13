@@ -1,25 +1,31 @@
-﻿<Window x:Class="SMO.UI.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:local="clr-namespace:SMO.UI" xmlns:Control="clr-namespace:SMO.UI.Control" Title="MainWindow" Height="813" Width="794">
-	<Window.Resources>
-	
-	</Window.Resources>
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:SMO.UI" xmlns:Control="clr-namespace:SMO.UI.Control" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="SMO.UI.MainWindow"
+        Title="MainWindow" Height="882" Width="1043">
 	<Grid>
-		<Control:ConfigurationControl Margin="372,12,12,588" />
-		<Control:DevicesControl Margin="139,12,435,94" />
-		<Control:DisciplineControl Margin="15.992,10,657.008,10.013" RenderTransformOrigin="0.5,0.5" >
-			<Control:DisciplineControl.RenderTransform>
-				<TransformGroup>
-					<ScaleTransform/>
-					<SkewTransform/>
-					<RotateTransform Angle="-179.937"/>
-					<TranslateTransform/>
-				</TransformGroup>
-			</Control:DisciplineControl.RenderTransform>
-		</Control:DisciplineControl>
-
-		<Control:RunnerControl Margin="273.333,644.667,10,10" />
+		<TabControl HorizontalAlignment="Left" Height="834" VerticalAlignment="Top" Width="851.75" Background="{x:Null}">
+			<TabItem Header="TabItem" Background="{x:Null}">
+				<Grid>
+					<Control:ConfigurationControl Margin="470.5,32,0,596.04" Width="Auto" />
+					<Control:DevicesControl Margin="132.854,23.228,381.25,0" Width="Auto" Height="Auto" />
+					<Control:DisciplineControl Margin="15.985,21.951,0,-31.905" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="112.52" >
+						<Control:DisciplineControl.RenderTransform>
+							<TransformGroup>
+								<ScaleTransform/>
+								<SkewTransform/>
+								<RotateTransform Angle="-179.937"/>
+								<TranslateTransform/>
+							</TransformGroup>
+						</Control:DisciplineControl.RenderTransform>
+					</Control:DisciplineControl>
+					<Control:StatisticsControl Margin="465.5,487.5,0,0" />
+				</Grid>
+			</TabItem>
+			<TabItem Header="TabItem">
+				<Grid>
+					<Control:GraphGenerator Margin="0,10,0,0" />
+				</Grid>
+			</TabItem>
+		</TabControl>
+		<Control:RunnerControl Margin="869.75,23.228,30.583,492.439" />
 	</Grid>
 
     <!--Grid DataContext="{Binding}">

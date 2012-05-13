@@ -34,7 +34,7 @@
 	</UserControl.Resources>
 
 	<Grid x:Name="LayoutRoot" DataContext="{Binding}">
-		<ListBox ItemTemplate="{DynamicResource DisciplineTemplate}" ItemsSource="{Binding Requests}" IsHitTestVisible="False">
+        <ListBox IsHitTestVisible="False" ItemsSource="{Binding Requests}" ItemTemplate="{StaticResource DisciplineTemplate}">
 			<ListBox.Background>
 				<SolidColorBrush Opacity="0.3" Color="#FFFFC775"/>
 			</ListBox.Background>

@@ -24,7 +24,7 @@ namespace SMO.UI.Control
         public ConfigurationControl()
 		{
 			this.InitializeComponent();
-            DataContext = App.Container.Resolve<ConfigurationView>();
+           // DataContext = App.Container.Resolve<ConfigurationView>();
 		}
 	}
 }

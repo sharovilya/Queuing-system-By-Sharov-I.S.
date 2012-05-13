@@ -10,20 +10,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SMO.Core;
+using SMO.UI.Views;
 using Microsoft.Practices.Unity;
 
 namespace SMO.UI.Control
 {
 	/// <summary>
-	/// Interaction logic for RunnerControl.xaml
+	/// Interaction logic for StatisticsControl.xaml
 	/// </summary>
-	public partial class RunnerControl : UserControl
+	public partial class StatisticsControl : UserControl
 	{
-		public RunnerControl()
+		public StatisticsControl()
 		{
 			this.InitializeComponent();
-		   // DataContext = App.Container.Resolve<RunView>();
+		   // DataContext = App.Container.Resolve<StatisticsView>();
 		}
 	}
 }

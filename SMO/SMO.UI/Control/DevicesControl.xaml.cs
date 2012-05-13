@@ -25,18 +25,7 @@ namespace SMO.UI.Control
 		public DevicesControl()
 		{
 			this.InitializeComponent();
-
-            //ISystemClock clock = new SystemClock();
-            //ISystemDevices d = new SystemDevices(clock);
-            //d.Add(new Device(clock));
-            //d.Add(new Device(clock));
-            //d.Add(new Device(clock));
-            //d.Add(new Device(clock));
-            //d.Children.First().Take(Request.New(1,1,1));
-
-            //DataContext = new DevicesView(clock, d);
-
-		    DataContext = App.Container.Resolve<DevicesView>();
+		  //  DataContext = App.Container.Resolve<DevicesView>();
 		}
 	}
 }

@@ -13,13 +13,13 @@
 			<RowDefinition Height="64*"/>
 			<RowDefinition Height="55*"/>
 		</Grid.RowDefinitions>
-		<local:UpDown x:Name ="deviceCount" Margin="237,45.5,15,34.091" Value="{Binding DeviceCount, Mode=TwoWay}" d:LayoutOverrides="VerticalMargin"/>
-        <local:UpDown x:Name ="queueSize" Margin="237,5,15,74.591" Value="{Binding SizeQueue, Mode=TwoWay}" d:LayoutOverrides="VerticalMargin"/>
-        <local:UpDown x:Name ="interval" Margin="237,86,15,92.499" Value="{Binding AvgIntervalTime, Mode=TwoWay}" Grid.RowSpan="2" d:LayoutOverrides="VerticalMargin"/>
-        <local:UpDown x:Name ="processing" Margin="237,11.408,15,51.999" Value="{Binding AvgProcessingTime, Mode=TwoWay}" Grid.Row="1"/>
-		<TextBlock HorizontalAlignment="Left" Height="39" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" FontSize="16" TextAlignment="Center" Panel.ZIndex="-30"><Run Language="ru-ru" Text="Колличество устройств"/></TextBlock>
-		<TextBlock HorizontalAlignment="Left" Height="39" Margin="10,52.5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" FontSize="16" TextAlignment="Center" Panel.ZIndex="-30"><Run Language="ru-ru" Text="Емкость очереди"/></TextBlock>
-		<TextBlock HorizontalAlignment="Left" Height="39" Margin="10,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" FontSize="16" TextAlignment="Center" Panel.ZIndex="-30" Grid.RowSpan="2"><Run Language="ru-ru" Text="Время поступления заявок"/></TextBlock>
-		<TextBlock HorizontalAlignment="Left" Height="39" Margin="10,0,0,37.908" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="222" FontSize="16" TextAlignment="Center" Panel.ZIndex="-30" Grid.Row="1"><Run Language="ru-ru" Text="Время обслуживания заявки"/></TextBlock>
+		<local:UpDown x:Name ="deviceCount" Margin="227,45.5,16,34.091" Value="{Binding DeviceCount, Mode=TwoWay}" d:LayoutOverrides="VerticalMargin"/>
+        <local:UpDown x:Name ="queueSize" Margin="227,5,16,74.591" Value="{Binding SizeQueue, Mode=TwoWay}" d:LayoutOverrides="VerticalMargin"/>
+        <local:UpDown x:Name ="interval" Margin="227,86,16,92.499" Value="{Binding AvgIntervalTime, Mode=TwoWay}" Grid.RowSpan="2" d:LayoutOverrides="VerticalMargin"/>
+        <local:UpDown x:Name ="processing" Margin="227,11.409,16,51.999" Value="{Binding AvgProcessingTime, Mode=TwoWay}" Grid.Row="1"/>
+		<TextBlock HorizontalAlignment="Left" Height="39" Margin="0,5.001,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" FontSize="16" TextAlignment="Left" Panel.ZIndex="-30"><Run Language="ru-ru" Text="Колличество устройств"/></TextBlock>
+		<TextBlock HorizontalAlignment="Left" Height="39" Margin="0,52.5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" FontSize="16" TextAlignment="Left" Panel.ZIndex="-30"><Run Language="ru-ru" Text="Емкость очереди"/></TextBlock>
+		<TextBlock HorizontalAlignment="Left" Height="39" Margin="0,91.5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" FontSize="16" TextAlignment="Left" Panel.ZIndex="-30" Grid.RowSpan="2"><Run Language="ru-ru" Text="Время поступления заявок"/></TextBlock>
+		<TextBlock HorizontalAlignment="Left" Height="39" Margin="0,0,0,48.499" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="222" FontSize="16" TextAlignment="Left" Panel.ZIndex="-30" Grid.Row="1"><Run Language="ru-ru" Text="Время обслуживания заявки"/></TextBlock>
 	</Grid>
 </UserControl>
